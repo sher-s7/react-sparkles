@@ -1,23 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import Sparkles from './components/Sparkles';
+import './styles/styles.css';
+import scratch from './sparkle.png';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div
+      className="App"
+      style={{ background: '#111', width: '100vw', height: '100vh' }}
+    >
+      <Sparkles
+        borderRadius="50%"
+        border='5px solid black'
+        sparkleCount={1220}
+        flickerSpeed={1}
+        type="vertical"
+        width="200px"
+        height="200px"
+        sparkleSize={{ width: 7, height: 7 }}
+        color='red'
+        overflow='hidden'
+      />
     </div>
   );
 }
