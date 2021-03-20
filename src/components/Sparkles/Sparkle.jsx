@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Sparkle = ({ position, sprite, color, size, flickerSpeed, type }) =>
+const Sparkle = ({ position, sprite, color, size, flickerDuration, type }) =>
   !sprite ? (
     <div
       className="flicker-sparkle"
@@ -10,7 +10,11 @@ const Sparkle = ({ position, sprite, color, size, flickerSpeed, type }) =>
         height: size.height,
         background: color ? color : '#f4ea6e',
         transform: `rotate(${Math.random() * 360}deg) ${type === 'random' ? 'translate(-50%, -50%)' : null}`,
-        animation: `flicker ${(Math.random() + flickerSpeed).toFixed(2)}s ease alternate infinite`,
+        animationName: 'flicker',
+        animationDuration: `${(Math.random() + flickerDuration).toFixed(2)}s`,
+        animationTimingFunction: 'ease',
+        animationDirection: 'alternate',
+        animationIterationCount: 'infinite',
         animationDelay: `${Math.random().toFixed(2)}s`,
         top: position.top,
         left: position.left,
@@ -26,7 +30,11 @@ const Sparkle = ({ position, sprite, color, size, flickerSpeed, type }) =>
         width: size.width,
         height: size.height,
         transform: `rotate(${Math.random() * 360}deg) ${type === 'random' ? 'translate(-50%, -50%)' : ''}`,
-        animation: `flicker ${(Math.random() + flickerSpeed).toFixed(2)}s ease alternate infinite`,
+        animationName: 'flicker',
+        animationDuration: `${(Math.random() + flickerDuration).toFixed(2)}s`,
+        animationTimingFunction: 'ease',
+        animationDirection: 'alternate',
+        animationIterationCount: 'infinite',
         animationDelay: `${Math.random().toFixed(2)}s`,
         top: position.top,
         left: position.left,

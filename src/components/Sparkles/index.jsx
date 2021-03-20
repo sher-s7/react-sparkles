@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import Sparkle from './Sparkle';
 
@@ -6,19 +6,29 @@ const Sparkles = ({
   sparkleCount,
   sparkleSize,
   color,
-  flickerSpeed,
+  flickerDuration,
   width,
   height,
   sprite,
   type,
   overflow,
-  ...props
+  style,
 }) => {
   const sparklesContainer = useRef();
+  const [refExists, setRefExists] = useState(false);
+
+  const getRandPos = (randInt, axis) => {
+    return axis === 'y'
+      ? `${randInt * sparklesContainer.current.clientHeight}px`
+      : `${randInt * sparklesContainer.current.clientWidth}px`;
+  };
+
+  useEffect(() => {
+    sparklesContainer.current ? setRefExists(true) : setRefExists(false);
+  }, [sparklesContainer]);
   return (
     <div
       ref={sparklesContainer}
-      
       style={{
         width: width,
         height: height,
@@ -29,7 +39,7 @@ const Sparkles = ({
         flexWrap: 'wrap',
         pointerEvents: 'none',
         overflow,
-        ...props
+        ...style,
       }}
     >
       {Array.from(Array(sparkleCount)).map((x, index) => (
@@ -37,17 +47,17 @@ const Sparkles = ({
           sprite={sprite}
           size={sparkleSize}
           color={color}
-          flickerSpeed={flickerSpeed}
+          flickerDuration={flickerDuration}
           key={index}
           type={type}
           position={{
             top:
-              type === 'random'
-                ? `${Math.random() * sparklesContainer.current.clientHeight}px`
+              type === 'random' && refExists
+                ? getRandPos(Math.random(), 'y')
                 : 'auto',
             left:
-              type === 'random'
-                ? `${Math.random() * sparklesContainer.current.clientWidth}px`
+              type === 'random' && refExists
+                ? getRandPos(Math.random(), 'x')
                 : 'auto',
           }}
         />
@@ -60,22 +70,23 @@ Sparkles.defaultProps = {
   sparkleCount: 1,
   sparkleSize: { width: '20px', height: '20px' },
   color: '#f4ea6e',
-  flickerSpeed: 0.5,
+  flickerDuration: 0.5,
   width: '200px',
   height: '200px',
   type: 'random',
-  overflow: 'visible'
+  overflow: 'visible',
 };
 
 Sparkles.propTypes = {
   sparkleCount: PropTypes.number,
   sparkleSize: PropTypes.object,
   color: PropTypes.string,
-  flickerSpeed: PropTypes.number,
+  flickerDuration: PropTypes.number,
   width: PropTypes.string,
   height: PropTypes.string,
   sprite: PropTypes.string,
   type: PropTypes.string,
-  overflow: PropTypes.string
+  overflow: PropTypes.string,
+  style: PropTypes.object,
 };
 export default Sparkles;
