@@ -1,0 +1,2 @@
+@keyframes flicker{0%{transform:translate(0);opacity:0}25%{transform:translate(1px);opacity:.5}50%{transform:translate(-1px);opacity:1}75%{transform:translateY(1px);opacity:.5}to{transform:translate(0);opacity:0}}body{margin:0;padding:0}
+/*# sourceMappingURL=main.0ad54c1a.chunk.css.map */
